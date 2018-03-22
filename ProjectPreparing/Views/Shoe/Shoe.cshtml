@@ -1,0 +1,18 @@
+﻿@model ShoeViewModel
+<div>
+    @Model.Name
+    <br />
+    @Model.Color
+    <br />
+    @Model.Price
+    <br />
+    <img src="~/images/@Model.Image" alt="@Model.Name" />
+    <br />
+    <br />
+    @using (Html.BeginForm())
+    {
+        @Html.TextBoxFor(m => m.Id)
+        <button type="submit">Köp</button>
+    }
+    <hr />
+</div>

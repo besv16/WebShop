@@ -1,0 +1,10 @@
+﻿@model List<ProjectPreparing.Models.CartViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Your Cart</h2>
+@foreach (var product in Model)
+{
+    Html.RenderPartial("Cart", product);
+}

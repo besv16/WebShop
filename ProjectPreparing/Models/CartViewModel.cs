@@ -7,7 +7,7 @@ using Dapper;
 namespace ProjectPreparing.Models
 {
     using ProjectPreparing.Models;
-    public class ShoeViewModel
+    public class CartViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }

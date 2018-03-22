@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using Dapper;
+
 namespace ProjectPreparing.Controllers
 {
     using ProjectPreparing.Models;
@@ -18,7 +19,7 @@ namespace ProjectPreparing.Controllers
         {
             this.connectionString = configuration.GetConnectionString("ConnectionString");
         }
-        
+
         public IActionResult Index()
         {
             List<ShoeViewModel> shoe;
@@ -34,13 +35,12 @@ namespace ProjectPreparing.Controllers
         public IActionResult Index(ShoeViewModel model)
         {
             List<ShoeViewModel> shoe;
-            string sql = "INSERT INTO Cart (Name, Color, Price, Image) VALUES (@Name, @Color, @Price, @Image)";
+            string sql = "INSERT INTO Cart (Id) VALUES (@ProductId)";
             using (var connection = new SqlConnection(this.connectionString))
             {
-                connection.Execute(sql, new { Name = model.Name, Color = model.Color, Price = model.Price, Image = model.Image });
+                connection.Execute(sql, new { ProductId = model.Id });
             }
-
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }

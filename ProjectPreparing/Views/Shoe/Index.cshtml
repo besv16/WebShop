@@ -6,26 +6,5 @@
 <h2>Products</h2>
 @foreach (var shoe in Model)
 {
-<div>
-    @shoe.Name
-    <br />
-    @shoe.Color
-    <br />
-    @shoe.Price
-    <br />
-    <img src="~/images/@shoe.Image" alt="@shoe.Name" />
-    <br />
-    <br />
-    @using (Html.BeginForm())
-    {
-        <!---<div class="hidden">-->
-        @Html.TextBoxFor(m => shoe.Name)
-        @Html.TextBoxFor(m => shoe.Color)
-        @Html.TextBoxFor(m => shoe.Price)
-        @Html.TextBoxFor(m => shoe.Image)
-        <!---</div>-->
-        <button type="submit">+</button>
-    }
-    <hr />
-</div>
+    Html.RenderPartial("Shoe", shoe);
 }
