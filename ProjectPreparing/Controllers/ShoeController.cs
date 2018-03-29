@@ -32,17 +32,7 @@ namespace ProjectPreparing.Controllers
             return View(shoe);
         }
 
-        //[HttpPost]
-        //public IActionResult Index(ShoeViewModel model)
-        //{
-        //    List<ShoeViewModel> shoe;
-        //    string sql = "INSERT INTO Cart (Id, ShoeId) VALUES (@Id)";
-        //    using (var connection = new SqlConnection(this.connectionString))
-        //    {
-        //        connection.Execute(sql, new { ProductId = model.Id });
-        //    }
-        //    return RedirectToAction("Index");
-        //}
+        // SKAPA COOKIEN HÄR!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
         // Testar att lägga in flera produkter (ShoeId) i samma rad i Cart-tabellen 

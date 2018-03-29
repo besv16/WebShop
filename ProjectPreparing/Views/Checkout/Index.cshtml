@@ -1,4 +1,4 @@
-﻿@model List<ProjectPreparing.Models.CartViewModel>;
+﻿@model ProjectPreparing.Models.CheckoutViewModel;
 
 @{
     ViewData["Title"] = "Index";
@@ -6,12 +6,8 @@
 
 <h2>Cart in Checkout-Controller!</h2>
 
-@foreach (var product in Model)
-{
+
     Html.RenderPartial("~/Views/Cart/Cart.cshtml", product);
-}
-
-
 
 
 <h2>Fill in your information, please</h2>
