@@ -1,0 +1,41 @@
+﻿@model List<ProjectPreparing.Models.CartViewModel>;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Cart in Checkout-Controller!</h2>
+
+@foreach (var product in Model)
+{
+    Html.RenderPartial("~/Views/Cart/Cart.cshtml", product);
+}
+
+
+
+
+<h2>Fill in your information, please</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.LabelFor(m => m.Firstname)
+    @Html.TextBoxFor(m => m.Firstname)
+    <br />
+    @Html.LabelFor(m => m.Lastname)
+    @Html.TextBoxFor(m => m.Lastname)
+    <br />
+    @Html.LabelFor(m => m.Email)
+    @Html.TextBoxFor(m => m.Email)
+    <br />
+    @Html.LabelFor(m => m.Phone)
+    @Html.TextBoxFor(m => m.Phone)
+    <br />
+    @Html.LabelFor(m => m.City)
+    @Html.TextBoxFor(m => m.City)
+    <br />
+    @Html.LabelFor(m => m.Zipcode)
+    @Html.TextBoxFor(m => m.Zipcode)
+    <br />
+
+    <button type="submit">Save & Chechout</button>
+}

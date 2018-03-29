@@ -25,14 +25,27 @@ namespace ProjectPreparing.Controllers
             }
 
             public IActionResult Index()
-        {
+            {
             List<CartViewModel> cart;
             using (var connection = new SqlConnection(this.connectionString))
             {
-                cart = connection.Query<CartViewModel>("select Cart.Id, Shoes.Name, Shoes.Color, Shoes.Price, Shoes.Image from Cart INNER JOIN Shoes ON Cart.Id = Shoes.Id").ToList();
+                cart = connection.Query<CartViewModel>("select Cart.Id, Cart.ShoeId, Shoes.Name, Shoes.Color, Shoes.Price, Shoes.Image from Cart INNER JOIN Shoes ON Cart.ShoeId = Shoes.Id").ToList();
             }
 
             return View(cart);
+            }
+
+        [HttpPost]
+        public IActionResult Index(CheckoutViewModel model)
+        {
+            List<CheckoutViewModel> order;
+            string sql = "INSERT INTO Order (CartId, ) VALUES (@Id, )";
+            using (var connection = new SqlConnection(this.connectionString))
+            {
+                connection.Execute(sql, new { Id = model.Id });
+            }
+            return RedirectToAction("Index", "Checkout");
         }
+
     }
 }

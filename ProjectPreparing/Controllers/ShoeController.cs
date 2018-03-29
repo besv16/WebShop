@@ -10,9 +10,11 @@ using Dapper;
 namespace ProjectPreparing.Controllers
 {
     using ProjectPreparing.Models;
+
     public class ShoeController : Controller
     {
         private static List<ShoeViewModel> shoe = new List<ShoeViewModel>();
+
         private readonly string connectionString;
  
         public ShoeController(IConfiguration configuration)
@@ -27,20 +29,46 @@ namespace ProjectPreparing.Controllers
             {
                 shoe = connection.Query<ShoeViewModel>("select * from Shoes").ToList();
             }
-
             return View(shoe);
         }
 
+        //[HttpPost]
+        //public IActionResult Index(ShoeViewModel model)
+        //{
+        //    List<ShoeViewModel> shoe;
+        //    string sql = "INSERT INTO Cart (Id, ShoeId) VALUES (@Id)";
+        //    using (var connection = new SqlConnection(this.connectionString))
+        //    {
+        //        connection.Execute(sql, new { ProductId = model.Id });
+        //    }
+        //    return RedirectToAction("Index");
+        //}
+
+
+        // Testar att lägga in flera produkter (ShoeId) i samma rad i Cart-tabellen 
+
         [HttpPost]
-        public IActionResult Index(ShoeViewModel model)
+        public IActionResult Index(CartViewModel model)
         {
-            List<ShoeViewModel> shoe;
-            string sql = "INSERT INTO Cart (Id) VALUES (@ProductId)";
-            using (var connection = new SqlConnection(this.connectionString))
-            {
-                connection.Execute(sql, new { ProductId = model.Id });
-            }
+                string sql = "INSERT INTO Cart (ShoeId) VALUES (@Id)";
+                
+                using (var connection = new SqlConnection(this.connectionString))
+                {
+                  connection.Execute(sql, new { Id = model.Id });
+                }
+
             return RedirectToAction("Index");
-        }
+        }        
+
+        //public IActionResult CartCounter()
+        //{
+        //    List<CartViewModel> cart;
+        //    using (var connection = new SqlConnection(this.connectionString))
+        //    {
+        //        cart = connection.Query<CartViewModel>("select * from Cart").ToList();
+        //    }
+
+        //    return View(cart);
+        //}
     }
 }

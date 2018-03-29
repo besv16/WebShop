@@ -7,4 +7,11 @@
     @Model.Price
     <br />
     <img src="~/images/@Model.Image" alt="@Model.Name" />
+
+    @using (Html.BeginForm())
+    {
+        @Html.TextBoxFor(m => m.Id)
+        
+    }
+
 </div>
