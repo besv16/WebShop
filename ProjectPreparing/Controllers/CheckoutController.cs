@@ -41,8 +41,8 @@ namespace ProjectPreparing.Controllers
         [HttpPost]
         public IActionResult Index(CheckoutViewModel model)
         {
-            var cookie = Request.Cookies["customerCookie"];
-            this.checkoutService.PostToOrder(model.Firstname);
+            //var cookie = Request.Cookies["customerCookie"];
+            this.checkoutService.PostToOrder(model.Firstname, model.Lastname, model.Email, model.Phone, model.City, model.Zipcode);
             return RedirectToAction("Index");
         }
     }
