@@ -9,7 +9,6 @@ namespace ProjectPreparing.Project.Core.Repositories.Implementations
 {
     public class CartRepository
     {
-
         private string ConnectionString;
 
         public CartRepository(string connectionString)
