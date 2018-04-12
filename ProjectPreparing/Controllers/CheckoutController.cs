@@ -6,44 +6,44 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System.Data.SqlClient;
 using Dapper;
+using ProjectPreparing.Models;
+using ProjectPreparing.Project.Core.Models;
+using ProjectPreparing.Project.Core.Repositories.Implementations;
+using ProjectPreparing.Project.Core.Services;
 
 namespace ProjectPreparing.Controllers
 {
-    using ProjectPreparing.Models;
 
     public class CheckoutController : Controller
     {
-        private static List<CartViewModel> cart = new List<CartViewModel>();
+        private static List<CheckoutViewModel> checkout = new List<CheckoutViewModel>();
         private readonly string connectionString;
+        private CheckoutService checkoutService;
 
         public CheckoutController(IConfiguration configuration)
         {
             this.connectionString = configuration.GetConnectionString("ConnectionString");
+            checkoutService = new CheckoutService(new CheckoutRepository(this.connectionString));
         }
-
+        
         public IActionResult Index()
         {
-            List<CartViewModel> cart;
-            using (var connection = new SqlConnection(this.connectionString))
-            {
-                cart = connection.Query<CartViewModel>("select * from Cart INNER JOIN Shoes ON Cart.ShoeId = Shoes.Id").ToList();
-            }
-            return View(cart);
+            //List<CartViewModel> cart;
+            //using (var connection = new SqlConnection(this.connectionString))
+            //{
+            //    cart = connection.Query<CartViewModel>("select * from Cart").ToList();
+            //}
+
+            //List<CheckoutViewModel> customerInfo;
+            return View();
         }
 
-        //[HttpPost]
-        //public IActionResult Index(CheckoutViewModel model)
-        //{
-        //    List<CheckoutViewModel> checkout;
-        //    string sql = "INSERT INTO Order (CartId) VALUES (@)";
-        //    using (var connection = new SqlConnection(this.connectionString))
-        //    {
-
-        //        //connection.Execute(sql, new { Id = model.Id });
-        //    }
-
-        //    return RedirectToAction("Index");
-        //}
-        
+        [HttpPost]
+        public IActionResult Index(CheckoutViewModel model)
+        {
+            var cookie = Request.Cookies["customerCookie"];
+            this.checkoutService.PostToOrder(model.Firstname);
+            return RedirectToAction("Index");
+        }
     }
 }

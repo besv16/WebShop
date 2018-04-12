@@ -1,19 +1,14 @@
-﻿@model ProjectPreparing.Models.CheckoutViewModel;
-
+﻿@model ProjectPreparing.Project.Core.Models.CheckoutViewModel
 @{
     ViewData["Title"] = "Index";
 }
-
-<h2>Cart in Checkout-Controller!</h2>
-
-
-    Html.RenderPartial("~/Views/Cart/Cart.cshtml", product);
-
 
 <h2>Fill in your information, please</h2>
 
 @using (Html.BeginForm())
 {
+    @Html.TextBoxFor(m => m.CartId)
+
     @Html.LabelFor(m => m.Firstname)
     @Html.TextBoxFor(m => m.Firstname)
     <br />
@@ -32,6 +27,5 @@
     @Html.LabelFor(m => m.Zipcode)
     @Html.TextBoxFor(m => m.Zipcode)
     <br />
-
-    <button type="submit">Save & Chechout</button>
+    <button type="submit">Place order</button>
 }

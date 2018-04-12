@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
 
-namespace ProjectPreparing.Models
+namespace ProjectPreparing.Project.Core.Models
 {
-    using ProjectPreparing.Models;
+    using ProjectPreparing.Project.Core.Models;
     public class ShoeViewModel
     {
         public int Id { get; set; }

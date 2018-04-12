@@ -9,56 +9,35 @@ using Dapper;
 
 namespace ProjectPreparing.Controllers
 {
-    using ProjectPreparing.Models;
+    using ProjectPreparing.Project.Core.Models;
+    using ProjectPreparing.Project.Core.Repositories.Implementations;
+    using ProjectPreparing.Project.Core.Services;
 
     public class ShoeController : Controller
     {
         private static List<ShoeViewModel> shoe = new List<ShoeViewModel>();
 
-        private readonly string connectionString;
- 
+        private readonly ShoeService shoeService;
+
         public ShoeController(IConfiguration configuration)
         {
-            this.connectionString = configuration.GetConnectionString("ConnectionString");
+            this.shoeService = new ShoeService(
+                new ShoeRepository(
+                configuration.GetConnectionString("ConnectionString")));
         }
 
         public IActionResult Index()
         {
             List<ShoeViewModel> shoe;
-            using (var connection = new SqlConnection(this.connectionString))
+            shoe = this.shoeService.GetAll();
+
+            if (Request.Cookies["customerCookie"] == null)
             {
-                shoe = connection.Query<ShoeViewModel>("select * from Shoes").ToList();
+                var GuId = Guid.NewGuid();
+                Response.Cookies.Append("customerCookie", GuId.ToString());
             }
+
             return View(shoe);
         }
-
-        // SKAPA COOKIEN HÄR!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-
-        // Testar att lägga in flera produkter (ShoeId) i samma rad i Cart-tabellen 
-
-        [HttpPost]
-        public IActionResult Index(CartViewModel model)
-        {
-                string sql = "INSERT INTO Cart (ShoeId) VALUES (@Id)";
-                
-                using (var connection = new SqlConnection(this.connectionString))
-                {
-                  connection.Execute(sql, new { Id = model.Id });
-                }
-
-            return RedirectToAction("Index");
-        }        
-
-        //public IActionResult CartCounter()
-        //{
-        //    List<CartViewModel> cart;
-        //    using (var connection = new SqlConnection(this.connectionString))
-        //    {
-        //        cart = connection.Query<CartViewModel>("select * from Cart").ToList();
-        //    }
-
-        //    return View(cart);
-        //}
     }
 }

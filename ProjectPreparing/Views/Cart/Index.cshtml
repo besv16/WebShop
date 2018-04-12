@@ -1,4 +1,4 @@
-﻿@model List<ProjectPreparing.Models.CartViewModel>
+﻿@model List<ProjectPreparing.Project.Core.Models.CartViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -9,4 +9,4 @@
     Html.RenderPartial("Cart", product);
 }
 
-<button type="submit">Continue to Checkout</button>
+<a asp-area="" asp-controller="Checkout" asp-action="Index">Continue to checkout</a>

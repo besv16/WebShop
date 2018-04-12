@@ -1,4 +1,4 @@
-﻿@model ShoeViewModel
+﻿@model ProjectPreparing.Project.Core.Models.ShoeViewModel
 <div>
     @Model.Name
     <br />
@@ -9,8 +9,9 @@
     <img src="~/images/@Model.Image" alt="@Model.Name" />
     <br />
     <br />
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Add", "Cart"))
     {
+        // Posta in i Cart
         @Html.TextBoxFor(m => m.Id)
         <button type="submit">Köp</button>
     }
