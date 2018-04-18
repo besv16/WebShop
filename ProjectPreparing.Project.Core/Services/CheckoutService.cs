@@ -1,4 +1,5 @@
-﻿using ProjectPreparing.Project.Core.Repositories.Implementations;
+﻿using ProjectPreparing.Project.Core.Models;
+using ProjectPreparing.Project.Core.Repositories.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,9 +15,14 @@ namespace ProjectPreparing.Project.Core.Services
             this.checkoutRepository = checkoutRepository;
         }
 
-        public void PostToOrder(string Firstname, string Lastname, string Email, int Phone, string City, int Zipcode)
+        public List<CheckoutViewModel> GetAll()
         {
-            this.checkoutRepository.PostToOrder(Firstname, Lastname, Email, Phone, City, Zipcode);
+            return this.checkoutRepository.GetAll();
+        }
+
+        public void PostToOrder(string Firstname, string Lastname, string Email, int Phone, string City, int Zipcode, string cookie)
+        {
+            this.checkoutRepository.PostToOrder(Firstname, Lastname, Email, Phone, City, Zipcode, cookie);
         }
     }
 }

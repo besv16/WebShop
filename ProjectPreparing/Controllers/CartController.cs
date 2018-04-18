@@ -17,7 +17,6 @@ namespace ProjectPreparing.Controllers
 
     public class CartController : Controller
         {
-
             private static List<CartViewModel> cart = new List<CartViewModel>();
             private readonly string connectionString;
             private CartService cartService;
@@ -32,12 +31,7 @@ namespace ProjectPreparing.Controllers
  
             public IActionResult Index()
             {
-                List<CartViewModel> cart;
-                using (var connection = new SqlConnection(this.connectionString))
-                {
-                    cart = connection.Query<CartViewModel>("select Cart.Id, Cart.ShoeId, Shoes.Name, Shoes.Color, Shoes.Price, Shoes.Image from Cart INNER JOIN Shoes ON Cart.ShoeId = Shoes.Id").ToList();
-                }
-
+                var cart = this.cartService.GetAll();
                 return View(cart);
             }
 

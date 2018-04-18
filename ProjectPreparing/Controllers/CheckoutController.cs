@@ -11,6 +11,7 @@ using ProjectPreparing.Project.Core.Models;
 using ProjectPreparing.Project.Core.Repositories.Implementations;
 using ProjectPreparing.Project.Core.Services;
 
+
 namespace ProjectPreparing.Controllers
 {
 
@@ -23,26 +24,24 @@ namespace ProjectPreparing.Controllers
         public CheckoutController(IConfiguration configuration)
         {
             this.connectionString = configuration.GetConnectionString("ConnectionString");
-            checkoutService = new CheckoutService(new CheckoutRepository(this.connectionString));
+            this.checkoutService = new CheckoutService(
+            new CheckoutRepository(
+            configuration.GetConnectionString("ConnectionString")));
+
+            //this.connectionString = configuration.GetConnectionString("ConnectionString");
+            //checkoutService = new CheckoutService(new CheckoutRepository(this.connectionString));
         }
         
         public IActionResult Index()
         {
-            //List<CartViewModel> cart;
-            //using (var connection = new SqlConnection(this.connectionString))
-            //{
-            //    cart = connection.Query<CartViewModel>("select * from Cart").ToList();
-            //}
-
-            //List<CheckoutViewModel> customerInfo;
-            return View();
+            var cart = this.checkoutService.GetAll();
+            return View(cart);
         }
 
         [HttpPost]
         public IActionResult Index(CheckoutViewModel model)
         {
-            //var cookie = Request.Cookies["customerCookie"];
-            this.checkoutService.PostToOrder(model.Firstname, model.Lastname, model.Email, model.Phone, model.City, model.Zipcode);
+            this.checkoutService.PostToOrder(model.Firstname, model.Lastname, model.Email, model.Phone, model.City, model.Zipcode, Request.Cookies["customerCookie"]);
             return RedirectToAction("Index");
         }
     }

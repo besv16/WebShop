@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Text;
 using Dapper;
+using ProjectPreparing.Project.Core.Models;
 
 namespace ProjectPreparing.Project.Core.Repositories.Implementations
 {
@@ -15,17 +17,26 @@ namespace ProjectPreparing.Project.Core.Repositories.Implementations
             this.ConnectionString = connectionString;
         }
 
-        public void PostToOrder(string Firstname, string Lastname, string Email, int Phone, string City, int Zipcode)
+        public List<CheckoutViewModel> GetAll()
         {
-            // I samma SQL-sats ska vi göra en SELECT-sats som hämtar ut ID ifrån Order-tabellen
-            string sql = @"INSERT INTO Orders 
-                         (Firstname, Lastname, Email, Phone, City, Zipcode) 
-                         VALUES 
-                         (@Firstname, @Lastname, @Email, @Phone, @City, @Zipcode)";
+            //List<CheckoutViewModel> cart;
 
             using (var connection = new SqlConnection(this.ConnectionString))
             {
-                connection.Execute(sql, new { Firstname, Lastname, Email, Phone, City, Zipcode });
+                return connection.Query<CheckoutViewModel>("select * from cart").ToList();
+            }
+        }
+
+        public void PostToOrder(string Firstname, string Lastname, string Email, int Phone, string City, int Zipcode, string cookie)
+        {
+            string sql = @"INSERT INTO Orders 
+                         (Firstname, Lastname, Email, Phone, City, Zipcode, CookieId) 
+                         VALUES 
+                         (@Firstname, @Lastname, @Email, @Phone, @City, @Zipcode, @cookie)";
+
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Execute(sql, new { Firstname, Lastname, Email, Phone, City, Zipcode, cookie });
             }
         }
     }
