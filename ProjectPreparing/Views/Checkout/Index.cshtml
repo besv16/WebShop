@@ -3,36 +3,41 @@
     ViewData["Title"] = "Index";
 }
 
+<h2>Checkout</h2>
+
 @foreach (var Product in Model.Cart)
 {
-@Product.Name
-<br />
-@Product.Color
-<br />
-<img class="smallImage" src="~/images/@Product.Image" alt="product"></img>
-}
-<h2>Fill in your information, please</h2>
+<div class="productWrapper">
+    <img class="smallImage" src="~/images/@Product.Image" alt="product"></img>
+    <div class="productMeta">
+        <p>@Product.Name</p>
+        <p>@Product.Color</p>
+        <p>@Product.Price</p>
+    </div>
+    </div>
+    }
+    <h2>Fill in your information, please</h2>
 
-@using (Html.BeginForm())
-{
-    <br />
-    @Html.LabelFor(m => m.Firstname)
-    @Html.TextBoxFor(m => m.Firstname)
-    <br />
-    @Html.LabelFor(m => m.Lastname)
-    @Html.TextBoxFor(m => m.Lastname)
-    <br />
-    @Html.LabelFor(m => m.Email)
-    @Html.TextBoxFor(m => m.Email)
-    <br />
-    @Html.LabelFor(m => m.Phone)
-    @Html.TextBoxFor(m => m.Phone)
-    <br />
-    @Html.LabelFor(m => m.City)
-    @Html.TextBoxFor(m => m.City)
-    <br />
-    @Html.LabelFor(m => m.Zipcode)
-    @Html.TextBoxFor(m => m.Zipcode)
-    <br />
-    <button type="submit">Place order</button>
-}
+    @using (Html.BeginForm())
+    {
+        <br />
+        @Html.LabelFor(m => m.Firstname)
+        @Html.TextBoxFor(m => m.Firstname)
+        <br />
+        @Html.LabelFor(m => m.Lastname)
+        @Html.TextBoxFor(m => m.Lastname)
+        <br />
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email)
+        <br />
+        @Html.LabelFor(m => m.Phone)
+        @Html.TextBoxFor(m => m.Phone)
+        <br />
+        @Html.LabelFor(m => m.City)
+        @Html.TextBoxFor(m => m.City)
+        <br />
+        @Html.LabelFor(m => m.Zipcode)
+        @Html.TextBoxFor(m => m.Zipcode)
+        <br />
+        <button type="submit">Place order</button>
+    }

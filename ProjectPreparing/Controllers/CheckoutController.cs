@@ -38,9 +38,14 @@ namespace ProjectPreparing.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(CheckoutViewModel model)
+        public IActionResult Index(CheckoutViewModel model, string cookie, string customerCookie)
         {
             this.checkoutService.PostToOrder(model.Firstname, model.Lastname, model.Email, model.Phone, model.City, model.Zipcode, Request.Cookies["customerCookie"]);
+            
+            // DELETE CART, UNSET COOKIE
+            cookie = Request.Cookies["customerCookie"];
+            this.checkoutService.DeleteCart(cookie);
+
             return RedirectToAction("Index");
         }
 

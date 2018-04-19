@@ -6,6 +6,7 @@ using System.Text;
 using Dapper;
 using ProjectPreparing.Project.Core.Models;
 
+
 namespace ProjectPreparing.Project.Core.Repositories.Implementations
 {
     public class CheckoutRepository
@@ -42,6 +43,17 @@ namespace ProjectPreparing.Project.Core.Repositories.Implementations
             using (var connection = new SqlConnection(this.ConnectionString))
             {
                 connection.Execute(sql, new { Firstname, Lastname, Email, Phone, City, Zipcode, cookie });
+            }
+
+        }
+
+        public void DeleteCart(string cookie)
+        {
+            // DELETE CART
+            string sql2 = "DELETE FROM Cart WHERE CookieId = @cookie";
+            using (var connection = new SqlConnection(this.ConnectionString))
+            {
+                connection.Execute(sql2, new { cookie });
             }
         }
     }
