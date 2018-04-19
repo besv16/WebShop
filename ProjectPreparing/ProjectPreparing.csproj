@@ -18,4 +18,8 @@
     <ProjectReference Include="..\ProjectPreparing.Project.Core\ProjectPreparing.Project.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="AppData\" />
+  </ItemGroup>
+
 </Project>
