@@ -3,6 +3,14 @@
     ViewData["Title"] = "Index";
 }
 
+@foreach (var Product in Model.Cart)
+{
+@Product.Name
+<br />
+@Product.Color
+<br />
+<img class="smallImage" src="~/images/@Product.Image" alt="product"></img>
+}
 <h2>Fill in your information, please</h2>
 
 @using (Html.BeginForm())

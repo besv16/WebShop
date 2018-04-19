@@ -31,7 +31,8 @@ namespace ProjectPreparing.Controllers
  
             public IActionResult Index()
             {
-                var cart = this.cartService.GetAll();
+                var cartId = Request.Cookies["customerCookie"];
+                var cart = this.cartService.GetAll(cartId);
                 return View(cart);
             }
 
@@ -40,7 +41,15 @@ namespace ProjectPreparing.Controllers
             {
                 var cookie = Request.Cookies["customerCookie"];
                 this.cartService.PostToCart(model.Id, cookie);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Shoe");
             }
+
+            //[HttpPost]
+            //public IActionResult Delete(CartViewModel model)
+            //{
+            //    var cookie = Request.Cookies["customerCookie"];
+            //    this.cartService.DeleteCart(model.Id, cookie);
+            //    return RedirectToAction("Index", "Shoe");
+            //}
     }
 }

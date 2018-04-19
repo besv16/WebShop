@@ -8,21 +8,26 @@ namespace ProjectPreparing.Project.Core.Services
 {
     public class CheckoutService
     {
-        private CheckoutRepository checkoutRepository;
+        private readonly CheckoutRepository checkoutRepository;
+        private readonly CartRepository cartRepository;
 
-        public CheckoutService(CheckoutRepository checkoutRepository)
+        public CheckoutService(CheckoutRepository checkoutRepository, CartRepository cartRepository)
         {
+            this.cartRepository = cartRepository;
             this.checkoutRepository = checkoutRepository;
-        }
-
-        public List<CheckoutViewModel> GetAll()
-        {
-            return this.checkoutRepository.GetAll();
         }
 
         public void PostToOrder(string Firstname, string Lastname, string Email, int Phone, string City, int Zipcode, string cookie)
         {
             this.checkoutRepository.PostToOrder(Firstname, Lastname, Email, Phone, City, Zipcode, cookie);
+        }
+
+        public CheckoutViewModel GetAll(string Id)
+        {
+            var cart = this.cartRepository.GetAll(Id);
+            var checkoutModel = new CheckoutViewModel { Cart = cart };
+
+            return checkoutModel;
         }
     }
 }

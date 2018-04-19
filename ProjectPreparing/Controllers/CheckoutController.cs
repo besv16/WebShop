@@ -10,6 +10,7 @@ using ProjectPreparing.Models;
 using ProjectPreparing.Project.Core.Models;
 using ProjectPreparing.Project.Core.Repositories.Implementations;
 using ProjectPreparing.Project.Core.Services;
+using Microsoft.AspNetCore.Http;
 
 
 namespace ProjectPreparing.Controllers
@@ -24,18 +25,16 @@ namespace ProjectPreparing.Controllers
         public CheckoutController(IConfiguration configuration)
         {
             this.connectionString = configuration.GetConnectionString("ConnectionString");
-            this.checkoutService = new CheckoutService(
-            new CheckoutRepository(
-            configuration.GetConnectionString("ConnectionString")));
-
-            //this.connectionString = configuration.GetConnectionString("ConnectionString");
-            //checkoutService = new CheckoutService(new CheckoutRepository(this.connectionString));
+            this.checkoutService = new CheckoutService(new CheckoutRepository(this.connectionString), new CartRepository(this.connectionString));
         }
-        
+
         public IActionResult Index()
         {
-            var cart = this.checkoutService.GetAll();
-            return View(cart);
+            var cartId = Request.Cookies["customerCookie"];
+            var Cart = this.checkoutService.GetAll(cartId);
+            //var cart = this.checkoutService.GetAll();
+            //return View(cart);
+            return View(Cart);
         }
 
         [HttpPost]
@@ -44,5 +43,6 @@ namespace ProjectPreparing.Controllers
             this.checkoutService.PostToOrder(model.Firstname, model.Lastname, model.Email, model.Phone, model.City, model.Zipcode, Request.Cookies["customerCookie"]);
             return RedirectToAction("Index");
         }
+
     }
 }

@@ -10,6 +10,13 @@ namespace ProjectPreparing.Project.Core.Repositories.Implementations
 {
     public class CheckoutRepository
     {
+        private readonly CheckoutRepository checkoutRepository;
+
+        public CheckoutRepository(CheckoutRepository checkoutRepository)
+        {
+            this.checkoutRepository = checkoutRepository;
+        }
+
         private string ConnectionString;
 
         public CheckoutRepository(string connectionString)
@@ -17,15 +24,13 @@ namespace ProjectPreparing.Project.Core.Repositories.Implementations
             this.ConnectionString = connectionString;
         }
 
-        public List<CheckoutViewModel> GetAll()
-        {
-            //List<CheckoutViewModel> cart;
-
-            using (var connection = new SqlConnection(this.ConnectionString))
-            {
-                return connection.Query<CheckoutViewModel>("select * from cart").ToList();
-            }
-        }
+        //public List<CartViewModel> GetAll()
+        //{
+        //    using (var connection = new SqlConnection(this.ConnectionString))
+        //    {
+        //        return connection.Query<CartViewModel>("select * from Cart").ToList();
+        //    }
+        //}
 
         public void PostToOrder(string Firstname, string Lastname, string Email, int Phone, string City, int Zipcode, string cookie)
         {

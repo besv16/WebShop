@@ -1,10 +1,9 @@
 ﻿@model CartViewModel
-<div>
+<div class="productWrapper">
+    <img class="smallImage" src="~/images/@Model.Image" alt="@Model.Name" />
+    <div class="productMeta">
     @Model.Name
-    <br />
     @Model.Color
-    <br />
     @Model.Price
-    <br />
-    <img src="~/images/@Model.Image" alt="@Model.Name" />
+    </div>
 </div>

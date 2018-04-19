@@ -3,6 +3,33 @@
     padding-bottom: 20px;
 }
 
+.cartWrapper {
+    width: 60%;
+    height: 245px;
+    display: flex;
+    flex-direction: column;
+    justify-content center;
+    align-items: center;
+}
+
+.productWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.productMeta {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+img.smallImage {
+    width: 20%;
+    height: auto;
+}
+
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
