@@ -32,8 +32,6 @@ namespace ProjectPreparing.Controllers
         {
             var cartId = Request.Cookies["customerCookie"];
             var Cart = this.checkoutService.GetAll(cartId);
-            //var cart = this.checkoutService.GetAll();
-            //return View(cart);
             return View(Cart);
         }
 
@@ -42,7 +40,6 @@ namespace ProjectPreparing.Controllers
         {
             this.checkoutService.PostToOrder(model.Firstname, model.Lastname, model.Email, model.Phone, model.City, model.Zipcode, Request.Cookies["customerCookie"]);
             
-            // DELETE CART, UNSET COOKIE
             cookie = Request.Cookies["customerCookie"];
             this.checkoutService.DeleteCart(cookie);
 

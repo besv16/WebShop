@@ -34,14 +34,5 @@ namespace ProjectPreparing.Project.Core.Repositories.Implementations
                 connection.Execute(sql, new { Id = Id, Cookie });
             }
         }
-
-        //public void DeleteCart(int Id, string Cookie)
-        //{
-        //    using (var connection = new SqlConnection(this.ConnectionString))
-        //    {
-        //        var sql = "DELETE FROM Cart WHERE CookieId = @cookie";
-        //        connection.Execute(sql, new { Cookie });
-        //    }
-        //}
     }
 }

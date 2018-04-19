@@ -24,14 +24,7 @@ namespace ProjectPreparing.Project.Core.Repositories.Implementations
         {
             this.ConnectionString = connectionString;
         }
-
-        //public List<CartViewModel> GetAll()
-        //{
-        //    using (var connection = new SqlConnection(this.ConnectionString))
-        //    {
-        //        return connection.Query<CartViewModel>("select * from Cart").ToList();
-        //    }
-        //}
+        
 
         public void PostToOrder(string Firstname, string Lastname, string Email, int Phone, string City, int Zipcode, string cookie)
         {
@@ -49,7 +42,6 @@ namespace ProjectPreparing.Project.Core.Repositories.Implementations
 
         public void DeleteCart(string cookie)
         {
-            // DELETE CART
             string sql2 = "DELETE FROM Cart WHERE CookieId = @cookie";
             using (var connection = new SqlConnection(this.ConnectionString))
             {

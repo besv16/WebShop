@@ -21,8 +21,7 @@ namespace ProjectPreparing.Project.Core.Services
         {
             this.checkoutRepository.PostToOrder(Firstname, Lastname, Email, Phone, City, Zipcode, cookie);
         }
-
-        // DELETE CART
+        
         public void DeleteCart(string cookie)
         {
             this.checkoutRepository.DeleteCart(cookie);
@@ -32,7 +31,6 @@ namespace ProjectPreparing.Project.Core.Services
         {
             var cart = this.cartRepository.GetAll(Id);
             var checkoutModel = new CheckoutViewModel { Cart = cart };
-
             return checkoutModel;
         }
     }

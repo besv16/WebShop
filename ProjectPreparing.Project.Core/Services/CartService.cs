@@ -24,11 +24,5 @@ namespace ProjectPreparing.Project.Core.Services
         {
             this.cartRepository.PostToCart(Id, Cookie);
         }
-
-        //public void DeleteCart(int Id, string Cookie)
-        //{
-        //    this.cartRepository.DeleteCart(Id, Cookie);
-        //}
-
     }
 }
